@@ -1,7 +1,5 @@
 package treasurediggers.domain.items;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +24,7 @@ public class Geopulse implements Item {
 
         this.name = "Geopulse";
         this.activationTime = 1300;
-        this.setUpTime = 10000;
+        this.setUpTime = 1000;
         this.x = x;
         this.y = y;
         this.effects = effects;

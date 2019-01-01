@@ -109,7 +109,9 @@ public class GameMap {
     public void createRocks() {
 
         for (int i = 0; i < rockFormations; i++) {
-            List<Point> points = createRandomRockFormation(20 + i * 5);
+            //List<Point> points = createRandomRockFormation(20 + i * 5);
+        	int sizeScale = width*height/600;
+            List<Point> points = createRandomRockFormation(5 + i*sizeScale);
 
             int randomPlaceX = new Random().nextInt(width - 8) - 4;
             int randomPlaceY = new Random().nextInt(height - 8) - 4;
@@ -145,7 +147,7 @@ public class GameMap {
             }
         }
 
-        //smoothRockCorners();
+        //smoothRockCorners();  Not working, doesn't need to be done.
     }
 
     private boolean rockFormationOverlaps(List<Point> points, int randomX, int randomY) {

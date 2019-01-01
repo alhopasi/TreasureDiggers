@@ -12,7 +12,7 @@ public class SandBag implements Item {
 
         this.name = "Sand Bag";
         this.activationTime = 10;
-        this.setUpTime = 5000;
+        this.setUpTime = 2000;
         this.x = x;
         this.y = y;
     }

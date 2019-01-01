@@ -29,11 +29,13 @@ public class Gamescreen {
     private Logic logic;
     private Map<KeyCode, Boolean> pressedKeys;
     private Map<String, PixelReader> images;
-    private Canvas canvas = new Canvas(1280, 720);
-    private GraphicsContext drawingTool = canvas.getGraphicsContext2D();
+    private Canvas canvas;
+    private GraphicsContext drawingTool;
 
     public Gamescreen(Logic logic) {
         this.logic = logic;
+        this.canvas = new Canvas(logic.getWidth()*16, (logic.getHeight() + 3)*16);
+        this.drawingTool = canvas.getGraphicsContext2D();
         pressedKeys = new HashMap<>();
         images = new HashMap<>();
 
@@ -63,6 +65,9 @@ public class Gamescreen {
         Scene game = new Scene(window);
 
         game.setOnKeyPressed((event) -> {
+        	if (logic.getGameEnded()) {
+        		return;
+        	}
             pressedKeys.put(event.getCode(), true);
 
             if (event.getCode() == KeyCode.Z) {
@@ -115,11 +120,25 @@ public class Gamescreen {
         game.setOnKeyReleased((event) -> {
             pressedKeys.put(event.getCode(), false);
         });
+        
+        new AnimationTimer() {
+
+            @Override
+            public void handle(long nykyhetki) {
+            	if (logic.getGameEnded()) {
+            		return;
+            	}
+            	logic.checkEnd();
+            }
+        }.start();
 
         new AnimationTimer() {
 
             @Override
             public void handle(long nykyhetki) {
+            	if (logic.getGameEnded()) {
+            		return;
+            	}
                 if (pressedKeys.getOrDefault(KeyCode.D, false)) {
                     logic.move(logic.getPlayer1(), "right");
                 }
@@ -168,7 +187,7 @@ public class Gamescreen {
     }
 
     private void drawAll() {
-        WritableImage newScreen = new WritableImage(1280, 720);
+        WritableImage newScreen = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
         PixelWriter screenWriter = newScreen.getPixelWriter();
 
         drawBackground(screenWriter);
@@ -182,8 +201,8 @@ public class Gamescreen {
     }
 
     private void drawBackground(PixelWriter screenWriter) {
-        for (int y = 0; y < 720; y++) {
-            for (int x = 0; x < 1280; x++) {
+        for (int y = 0; y < canvas.getHeight(); y++) {
+            for (int x = 0; x < canvas.getWidth(); x++) {
                 screenWriter.setColor(x, y, Color.BLACK);
             }
         }
@@ -253,8 +272,8 @@ public class Gamescreen {
                 drawTile(x, y, screenWriter);
             });
         } else {
-            for (int y = 0; y < 42; y++) {
-                for (int x = 0; x < 80; x++) {
+            for (int y = 0; y < logic.getHeight(); y++) {
+                for (int x = 0; x < logic.getWidth(); x++) {
                     drawTile(x, y, screenWriter);
                 }
             }

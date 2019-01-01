@@ -24,19 +24,63 @@ public class Logic {
     private List<ExplosionToDraw> explosionsToDraw;
     private List<Item> items;
     private List<ColorEffect> colorEffects;
+    private boolean gameEnd;
 
     public Logic(List<Player> players, int width, int height) {
 
-        this.players = players;
         this.gameMap = new GameMap(width, height);
         this.fov = true;
         this.width = width;
         this.height = height;
-        this.digSpeed = 400;
-        this.moveSpeed = 500;
+        this.digSpeed = 100;
+        this.moveSpeed = 250;
         this.explosionsToDraw = new ArrayList<>();
         this.items = new ArrayList<>();
         this.colorEffects = new ArrayList<>();
+        this.players = initPlayers(players);
+        this.gameEnd = false;
+    }
+    
+    public void checkEnd() {
+    	for (Player player : players) {
+    		if (player.getHealth() <= 0) {
+    			this.gameEnd = true;
+    		}
+    	}
+    }
+    
+    public boolean getGameEnded() {
+    	return this.gameEnd;
+    }
+    
+    public int getWidth() {
+    	return this.width;
+    }
+    
+    public int getHeight() {
+    	return this.height;
+    }
+    
+    private List<Player> initPlayers(List<Player> players) {
+    	for (int i = 0; i < players.size(); i++) {
+    		if (i == 0) {
+    			players.get(i).setX(1);
+    			players.get(i).setY(1);
+    		}
+    		if (i == 1) {
+    			players.get(i).setX(this.width - 2);
+    			players.get(i).setY(this.height - 2);
+    		}
+    		if (i == 2) {
+    			players.get(i).setX(this.width - 2);
+    			players.get(i).setY(1);
+    		}
+    		if (i == 3) {
+    			players.get(i).setX(1);
+    			players.get(i).setY(this.height - 2);
+    		}
+    	}
+    	return players;
     }
 
     public GameMap getMap() {
@@ -109,11 +153,11 @@ public class Logic {
         }
         for (int x1 = 0; x1 < width; x1++) {
             addTile(x1, 0, tiles);
-            addTile(x1, 41, tiles);
+            addTile(x1, height-1, tiles);
         }
         for (int y1 = 0; y1 < height; y1++) {
             addTile(0, y1, tiles);
-            addTile(79, y1, tiles);
+            addTile(width-1, y1, tiles);
         }
         return tiles;
     }

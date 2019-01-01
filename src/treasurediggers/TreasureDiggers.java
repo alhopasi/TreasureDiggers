@@ -16,11 +16,11 @@ public class TreasureDiggers extends Application {
 
     @Override
     public void init() {
-        int width = 80;
-        int height = 42;
+        int width = 40;    // Default width 80!
+        int height = 30;   // Default height 42!
         List<Player> players = new ArrayList<>();
-        players.add(new Player("Iivo", 1, 1));
-        players.add(new Player("Jooa", 78, 40));
+        players.add(new Player("Iivo"));
+        players.add(new Player("Jooa"));
         logic = new Logic(players, width, height);
         gamescreen = new Gamescreen(logic);
     }
@@ -30,10 +30,10 @@ public class TreasureDiggers extends Application {
         Scene scene = gamescreen.getScene();
 
         stage.setTitle("Treasure Diggers");
-        stage.setMinHeight(742);
-        stage.setMaxHeight(758);
-        stage.setMinWidth(1280);
-        stage.setMaxWidth(1296);
+        stage.setMinHeight((logic.getHeight()+3)*16 + 22);
+        stage.setMaxHeight((logic.getHeight()+3)*16 + 38);
+        stage.setMinWidth(logic.getWidth()*16);
+        stage.setMaxWidth(logic.getWidth()*16 + 16);
         stage.setScene(scene);
         stage.show();
     }

@@ -1,6 +1,5 @@
 # TreasureDiggers
 A summer project I was working on before starting my CS studies. To learn more about Java.
-<br>Still unfinished as my studies began I had no more time to work on it.
 
 KEYS - Player 1:
 <br>Up: W
@@ -25,6 +24,8 @@ CHEATS:
 
 Press the item number (1 or 2) when standing on the doorway to change your selected item.
 
-There is no check for game ending, but you win if the other player loses all health.
-<br>Also, the current map is too big for the "slow" pace of the game.
-<br>There are several ways to improve the gameplay and the code, but I quit working on this.
+Version notes:
+<br>Made the game more fast paced.
+<br>Added check for game end (death). Currently it finishes the animation if one is going on... like setting up the bomb.
+<br>Gamemap is now scalable. However, if played with less than 40 width, player 2 info is not visible.
+<br>

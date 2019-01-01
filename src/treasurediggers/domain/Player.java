@@ -18,10 +18,10 @@ public class Player {
     private String item2;
     boolean isMoving;
 
-    public Player(String name, int x, int y) {
+    public Player(String name) {
         this.name = name;
-        this.x = x;
-        this.y = y;
+        this.x = 1;
+        this.y = 1;
         this.visionRange = 10;
         this.movingDirection = "";
         this.diggingDirection = "";
@@ -40,12 +40,8 @@ public class Player {
         return this.settingUpItem;
     }
 
-    public boolean setX(int x) {
-        if (x < 1 || x > 78) {
-            return false;
-        }
+    public void setX(int x) {
         this.x = x;
-        return true;
     }
     
     public void addGold(int amount) {
