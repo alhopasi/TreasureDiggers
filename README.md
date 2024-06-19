@@ -41,7 +41,8 @@ CHANGING CURRENT ITEMS:
 Note: if you have java binaries in Path, this is easier. Otherwise you might need to point to the java binary file to execute javac, jar and java -commands. Also, if you are using windows or linux, some of the basic commands might vary. And directory paths (using \ or /).
 
 Follow these steps to compile TreasureDiggers from source code:
-- Get the source code from Github `git clone https://github.com/alhopasi/TreasureDiggers.git` or download from https://github.com/alhopasi/TreasureDiggers and unzip the source into chosen directory
+- Use a new and empty directory, where the final game is going to be compiled using these instructions.
+- Get the source code from Github `git clone https://github.com/alhopasi/TreasureDiggers.git` or download from https://github.com/alhopasi/TreasureDiggers and unzip the source into chosen directory. (Rename the unzipped directory from `TreasureDiggers-master` to `TreasureDiggers`.)
 - Make a directory, where to compile the source and compile the source:
 ```
 mkdir compiled
@@ -50,7 +51,7 @@ javac -d compiled/ -verbose -sourcepath TreasureDiggers/src/ TreasureDiggers/src
 - Copy MANIFEST.MF file to compiled source path:
 ```
 mkdir compiled/META-INF
-copy TreasureDiggers\META-INF\MANIFEST.MF compiled\META-INF\
+cp TreasureDiggers/META-INF/MANIFEST.MF compiled/META-INF/
 cd compiled
 ```
 - Create the jar with MANIFEST bundled:
@@ -58,9 +59,11 @@ cd compiled
 jar cvfm ../treasurediggers.jar META-INF/MANIFEST.MF treasurediggers
 ```
 
-- Run the java application
+- Copy image files and config.cfg needed to run the java application
 ```
 cd ..
+cp TreasureDiggers/images/* ./
+cp TreasureDiggers/config.cfg ./
 java -jar treasurediggers.jar
 ```
 
