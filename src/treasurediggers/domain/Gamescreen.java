@@ -70,13 +70,13 @@ public class Gamescreen {
         	}
             pressedKeys.put(event.getCode(), true);
 
-            if (event.getCode() == KeyCode.Z) {
+            if (event.getCode() == logic.getKeycode("TOGGLEFOV")) {
                 logic.toggleFov();
             }
-            if (event.getCode() == KeyCode.X) {
+            if (event.getCode() == logic.getKeycode("MORESPEED")) {
                 logic.moreDigAndMoveSpeed();
             }
-            if (event.getCode() == KeyCode.NUMPAD7) {
+            if (event.getCode() == logic.getKeycode("P2ITEM1")) {
                 if (logic.getMap().getTile(logic.getPlayer2().getX(), logic.getPlayer2().getY()).getType() == TileType.DOOR) {
                     logic.getPlayer2().setItem1(logic.getNextItem(logic.getPlayer2().getItem1()));
                     return;
@@ -84,7 +84,7 @@ public class Gamescreen {
                 Item item = getItem(logic.getPlayer2().getItem1(), logic.getPlayer2().getX(), logic.getPlayer2().getY());
                 logic.setUpItem(logic.getPlayer2(), item);
             }
-            if (event.getCode() == KeyCode.NUMPAD9) {
+            if (event.getCode() == logic.getKeycode("P2ITEM2")) {
                 if (logic.getMap().getTile(logic.getPlayer2().getX(), logic.getPlayer2().getY()).getType() == TileType.DOOR) {
                     logic.getPlayer2().setItem2(logic.getNextItem(logic.getPlayer2().getItem2()));
                     return;
@@ -92,7 +92,7 @@ public class Gamescreen {
                 Item item = getItem(logic.getPlayer2().getItem2(), logic.getPlayer2().getX(), logic.getPlayer2().getY());
                 logic.setUpItem(logic.getPlayer2(), item);
             }
-            if (event.getCode() == KeyCode.Q) {
+            if (event.getCode() == logic.getKeycode("P1ITEM1")) {
                 if (logic.getMap().getTile(logic.getPlayer1().getX(), logic.getPlayer1().getY()).getType() == TileType.DOOR) {
                     logic.getPlayer1().setItem1(logic.getNextItem(logic.getPlayer1().getItem1()));
                     return;
@@ -100,7 +100,7 @@ public class Gamescreen {
                 Item item = getItem(logic.getPlayer1().getItem1(), logic.getPlayer1().getX(), logic.getPlayer1().getY());
                 logic.setUpItem(logic.getPlayer1(), item);
             }
-            if (event.getCode() == KeyCode.E) {
+            if (event.getCode() == logic.getKeycode("P1ITEM2")) {
                 if (logic.getMap().getTile(logic.getPlayer1().getX(), logic.getPlayer1().getY()).getType() == TileType.DOOR) {
                     logic.getPlayer1().setItem2(logic.getNextItem(logic.getPlayer1().getItem2()));
                     return;
@@ -139,28 +139,28 @@ public class Gamescreen {
             	if (logic.getGameEnded()) {
             		return;
             	}
-                if (pressedKeys.getOrDefault(KeyCode.D, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P1RIGHT"), false)) {
                     logic.move(logic.getPlayer1(), "right");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.S, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P1DOWN"), false)) {
                     logic.move(logic.getPlayer1(), "down");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.A, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P1LEFT"), false)) {
                     logic.move(logic.getPlayer1(), "left");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.W, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P1UP"), false)) {
                     logic.move(logic.getPlayer1(), "up");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.NUMPAD6, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P2RIGHT"), false)) {
                     logic.move(logic.getPlayer2(), "right");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.NUMPAD5, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P2DOWN"), false)) {
                     logic.move(logic.getPlayer2(), "down");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.NUMPAD4, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P2LEFT"), false)) {
                     logic.move(logic.getPlayer2(), "left");
                 }
-                if (pressedKeys.getOrDefault(KeyCode.NUMPAD8, false)) {
+                if (pressedKeys.getOrDefault(logic.getKeycode("P2UP"), false)) {
                     logic.move(logic.getPlayer2(), "up");
                 }
             }

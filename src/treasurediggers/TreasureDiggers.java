@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import treasurediggers.domain.Gamescreen;
 import treasurediggers.domain.Logic;
-import treasurediggers.domain.Player;
+import treasurediggers.domain.Utils;
 
 public class TreasureDiggers extends Application {
 
@@ -16,12 +16,8 @@ public class TreasureDiggers extends Application {
 
     @Override
     public void init() {
-        int width = 40;    // Default width 80!
-        int height = 30;   // Default height 42!
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("Iivo"));
-        players.add(new Player("Jooa"));
-        logic = new Logic(players, width, height);
+        List<String> config = Utils.readFile("config.cfg");
+        logic = new Logic(config);
         gamescreen = new Gamescreen(logic);
     }
 
@@ -40,7 +36,6 @@ public class TreasureDiggers extends Application {
 
     public static void main(String[] args) {
         launch(TreasureDiggers.class);
-
     }
 
 }

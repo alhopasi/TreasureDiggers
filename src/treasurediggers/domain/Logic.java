@@ -6,11 +6,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map;
+import java.util.HashMap;
+import javafx.scene.input.KeyCode;
 import treasurediggers.domain.items.Dynamite;
 import treasurediggers.domain.items.Geopulse;
 import treasurediggers.domain.items.Item;
 import treasurediggers.domain.items.SandDigger;
 import treasurediggers.domain.items.SmallBomb;
+import treasurediggers.domain.Utils;
 
 public class Logic {
 
@@ -25,20 +29,85 @@ public class Logic {
     private List<Item> items;
     private List<ColorEffect> colorEffects;
     private boolean gameEnd;
-
-    public Logic(List<Player> players, int width, int height) {
-
-        this.gameMap = new GameMap(width, height);
+    private Map<String,KeyCode> keyConfig;
+    
+    public Logic(List<String> config) {
+        this.players = new ArrayList<>();
+        this.keyConfig = new HashMap<>();
+        initConfig(config);
+        this.gameMap = new GameMap(this.width, this.height);
         this.fov = true;
-        this.width = width;
-        this.height = height;
         this.digSpeed = 100;
         this.moveSpeed = 250;
         this.explosionsToDraw = new ArrayList<>();
         this.items = new ArrayList<>();
         this.colorEffects = new ArrayList<>();
-        this.players = initPlayers(players);
+        this.players = initPlayers(this.players);
         this.gameEnd = false;
+    }
+
+    private void initConfig(List<String> config) {
+        Map<String,KeyCode> keys = Utils.initKeymap();
+        for (int i = 0; i < config.size(); i++) {
+            String[] keyValue = config.get(i).split("=");
+            switch (keyValue[0]) {
+                case "player":
+                    this.players.add(new Player(keyValue[1]));
+                    break;
+                case "game_width":
+                    this.width = Integer.parseInt(keyValue[1]);
+                    break;
+                case "game_height":
+                    this.height = Integer.parseInt(keyValue[1]);
+                    break;
+                case "player1_up":
+                    this.keyConfig.put("P1UP",keys.get(keyValue[1]));
+					break;
+                case "player1_down":
+                    this.keyConfig.put("P1DOWN",keys.get(keyValue[1]));
+					break;
+                case "player1_left":
+                    this.keyConfig.put("P1LEFT",keys.get(keyValue[1]));
+					break;
+                case "player1_right":
+                    this.keyConfig.put("P1RIGHT",keys.get(keyValue[1]));
+					break;
+                case "player1_item1":
+                    this.keyConfig.put("P1ITEM1",keys.get(keyValue[1]));
+					break;
+                case "player1_item2":
+                    this.keyConfig.put("P1ITEM2",keys.get(keyValue[1]));
+					break;
+                case "player2_up":
+                    this.keyConfig.put("P2UP",keys.get(keyValue[1]));
+					break;
+                case "player2_down":
+                    this.keyConfig.put("P2DOWN",keys.get(keyValue[1]));
+					break;
+                case "player2_left":
+                    this.keyConfig.put("P2LEFT",keys.get(keyValue[1]));
+					break;
+                case "player2_right":
+                    this.keyConfig.put("P2RIGHT",keys.get(keyValue[1]));
+					break;
+                case "player2_item1":
+                    this.keyConfig.put("P2ITEM1",keys.get(keyValue[1]));
+					break;
+                case "player2_item2":
+                    this.keyConfig.put("P2ITEM2",keys.get(keyValue[1]));
+					break;
+                case "togglefov":
+                    this.keyConfig.put("TOGGLEFOV",keys.get(keyValue[1]));
+					break;
+                case "morespeed":
+                    this.keyConfig.put("MORESPEED",keys.get(keyValue[1]));
+					break;
+            }
+        }   
+    }
+
+    public KeyCode getKeycode(String actionCode) {
+        return this.keyConfig.get(actionCode);
     }
     
     public void checkEnd() {
